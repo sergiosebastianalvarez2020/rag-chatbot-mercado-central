@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mercado Central 24h - Asistente IA</title>
+
+    <style>
+
+        body{
+            margin:0;
+            font-family:Arial, Helvetica, sans-serif;
+            background:#f4f6f9;
+        }
+
+        .contenedor{
+            width:90%;
+            max-width:900px;
+            margin:40px auto;
+            background:white;
+            border-radius:12px;
+            box-shadow:0 0 15px rgba(0,0,0,.15);
+            overflow:hidden;
+        }
+
+        .header{
+            background:#0f9d58;
+            color:white;
+            padding:25px;
+            text-align:center;
+        }
+
+        .header h1{
+            margin:0;
+        }
+
+        .contenido{
+            padding:30px;
+        }
+
+        textarea{
+            width:100%;
+            min-height:120px;
+            resize:vertical;
+            padding:15px;
+            font-size:16px;
+            border-radius:8px;
+            border:1px solid #ccc;
+            box-sizing:border-box;
+        }
+
+        button{
+            margin-top:15px;
+            background:#0f9d58;
+            color:white;
+            border:none;
+            padding:12px 30px;
+            border-radius:8px;
+            cursor:pointer;
+            font-size:16px;
+        }
+
+        button:hover{
+            background:#0b7d45;
+        }
+
+        .respuesta{
+            margin-top:30px;
+            background:#eef7ef;
+            border-left:6px solid #0f9d58;
+            padding:20px;
+            border-radius:8px;
+            white-space:pre-wrap;
+        }
+
+        .footer{
+            text-align:center;
+            padding:15px;
+            color:#777;
+            font-size:14px;
+            background:#fafafa;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <div class="header">
+        <h1>🤖 Mercado Central 24h</h1>
+        <p>Asistente Inteligente basado en IA</p>
+    </div>
+
+    <div class="contenido">
+
+        <form method="POST">
+
+            <textarea
+                name="pregunta"
+                placeholder="Escriba su consulta aquí..."
+                required></textarea>
+
+            <button id="btnEnviar" type="submit">
+             Preguntar
+            </button>
+
+        </form>
+
+      {% if historial %}
+
+<h2>Conversación</h2>
+
+{% for pregunta, respuesta in historial %}
+
+<div style="display:flex;justify-content:flex-end;margin-top:18px;">
+
+    <div style="
+        background:#d9ecff;
+        max-width:75%;
+        padding:14px;
+        border-radius:15px 15px 0px 15px;
+    ">
+
+        <strong>👤 Tú</strong><br><br>
+
+        {{ pregunta }}
+
+    </div>
+
+</div>
+
+<div style="display:flex;justify-content:flex-start;margin-top:10px;">
+
+    <div style="
+        background:#eef7ef;
+        max-width:75%;
+        padding:14px;
+        border-left:5px solid #0f9d58;
+        border-radius:15px 15px 15px 0px;
+        white-space:pre-wrap;
+    ">
+
+        <strong>🤖 Mercado Central IA</strong><br><br>
+
+        {{ respuesta }}
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+{% endif %}
+
+    </div>
+
+    <div class="footer">
+        Proyecto RAG desarrollado con Python · LangChain · ChromaDB · Gemini
+    </div>
+
+</div>
+    <div class="footer">
+        Proyecto RAG desarrollado con Python · LangChain · ChromaDB · Gemini
+    </div>
+
+</div>
+
+<script>
+
+document.querySelector("form").addEventListener("submit", function(){
+
+    const boton = document.getElementById("btnEnviar");
+
+    boton.innerHTML = "Consultando...";
+
+    boton.disabled = true;
+
+});
+
+</script>
+
+</body>
+</html>
+</body>
+</html>

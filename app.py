@@ -1,4 +1,5 @@
 from config import cliente
+from flask import Flask, render_template, request
 
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_core.documents import Document
@@ -9,6 +10,7 @@ from langchain_community.vectorstores import Chroma
 
 import re
 import os
+app = Flask(__name__)
 
 # ==========================
 # CARGAR PDF
@@ -89,10 +91,14 @@ retriever = vectorstore.as_retriever(
 
 
 
-
 def preguntar(pregunta):
 
-    pregunta_busqueda = pregunta.lower() + " Mercado Central 24h"
+    # Si hay historial, usar la última pregunta para mejorar la búsqueda
+    if historial:
+        ultima_pregunta = historial[-1][0]
+        pregunta_busqueda = f"{ultima_pregunta} {pregunta} Mercado Central 24h"
+    else:
+        pregunta_busqueda = f"{pregunta} Mercado Central 24h"
 
     resultados = retriever.invoke(pregunta_busqueda)
 
@@ -140,23 +146,26 @@ RESPUESTA:
         historial.pop(0)
 
     return respuesta_texto
-
 # ==========================
 # MEMORIA DE LA CONVERSACIÓN
 # ==========================
 
 historial = []
 
-while True:
+@app.route("/", methods=["GET", "POST"])
+def inicio():
 
-    pregunta = input("\nUsuario: ")
+    if request.method == "POST":
 
-    if pregunta.lower() == "salir":
-        print("Chat finalizado.")
-        break
+        pregunta = request.form["pregunta"]
 
-    respuesta = preguntar(pregunta)
+        preguntar(pregunta)
 
-    print("\nBot:")
-    print(respuesta)
-    
+    return render_template(
+        "index.html",
+        historial=historial
+    )
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
