@@ -1,8 +1,7 @@
 from config import cliente
 
 from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_community.vectorstores import Chroma
-
+from langchain_chroma import Chroma
 # ==========================
 # VECTOR STORE
 # ==========================
@@ -152,7 +151,7 @@ def preguntar(pregunta):
         )
     )
 
-    if len(historial) > 10:
+    if len(historial) > 6:
         historial.pop(0)
 
     return respuesta

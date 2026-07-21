@@ -64,15 +64,6 @@
             background:#0b7d45;
         }
 
-        .respuesta{
-            margin-top:30px;
-            background:#eef7ef;
-            border-left:6px solid #0f9d58;
-            padding:20px;
-            border-radius:8px;
-            white-space:pre-wrap;
-        }
-
         .footer{
             text-align:center;
             padding:15px;
@@ -104,64 +95,59 @@
                 required></textarea>
 
             <button id="btnEnviar" type="submit">
-             Preguntar
+                Preguntar
             </button>
 
         </form>
 
-      {% if historial %}
+        {% if historial %}
 
-<h2>Conversación</h2>
+        <h2 style="margin-top:40px;">Conversación</h2>
 
-{% for pregunta, respuesta in historial %}
+        {% for pregunta, respuesta in historial %}
 
-<div style="display:flex;justify-content:flex-end;margin-top:18px;">
+        <div style="display:flex;justify-content:flex-end;margin-top:18px;">
 
-    <div style="
-        background:#d9ecff;
-        max-width:75%;
-        padding:14px;
-        border-radius:15px 15px 0px 15px;
-    ">
+            <div style="
+                background:#d9ecff;
+                max-width:75%;
+                padding:14px;
+                border-radius:15px 15px 0 15px;
+            ">
 
-        <strong>👤 Tú</strong><br><br>
+                <strong>👤 Tú</strong><br><br>
 
-        {{ pregunta }}
+                {{ pregunta }}
+
+            </div>
+
+        </div>
+
+        <div style="display:flex;justify-content:flex-start;margin-top:10px;">
+
+            <div style="
+                background:#eef7ef;
+                max-width:75%;
+                padding:14px;
+                border-left:5px solid #0f9d58;
+                border-radius:15px 15px 15px 0;
+                white-space:pre-wrap;
+            ">
+
+                <strong>🤖 Mercado Central IA</strong><br><br>
+
+                {{ respuesta }}
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+        {% endif %}
 
     </div>
 
-</div>
-
-<div style="display:flex;justify-content:flex-start;margin-top:10px;">
-
-    <div style="
-        background:#eef7ef;
-        max-width:75%;
-        padding:14px;
-        border-left:5px solid #0f9d58;
-        border-radius:15px 15px 15px 0px;
-        white-space:pre-wrap;
-    ">
-
-        <strong>🤖 Mercado Central IA</strong><br><br>
-
-        {{ respuesta }}
-
-    </div>
-
-</div>
-
-{% endfor %}
-
-{% endif %}
-
-    </div>
-
-    <div class="footer">
-        Proyecto RAG desarrollado con Python · LangChain · ChromaDB · Gemini
-    </div>
-
-</div>
     <div class="footer">
         Proyecto RAG desarrollado con Python · LangChain · ChromaDB · Gemini
     </div>
@@ -182,7 +168,5 @@ document.querySelector("form").addEventListener("submit", function(){
 
 </script>
 
-</body>
-</html>
 </body>
 </html>
