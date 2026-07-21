@@ -1,6 +1,7 @@
 from config import cliente
-
+import time
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
+
 from dotenv import load_dotenv
 import os
 
@@ -108,11 +109,9 @@ def consultar_gemini(prompt):
 
         return respuesta.text
 
-    except Exception:
-
-        return (
-            "Ocurrió un error al consultar Gemini."
-        )
+    except Exception as e:
+       print("ERROR GEMINI:", e)
+       raise
 
 
 def preguntar(pregunta):
@@ -133,8 +132,18 @@ def preguntar(pregunta):
             + " Mercado Central 24h"
         )
 
+    # ==========================
+    # MEDIR CHROMA
+    # ==========================
+
+    inicio = time.time()
+
     contexto = buscar_contexto(
         pregunta_busqueda
+    )
+
+    print(
+        f"Buscar contexto: {time.time() - inicio:.2f} segundos"
     )
 
     historial_texto = construir_historial()
@@ -145,8 +154,18 @@ def preguntar(pregunta):
         pregunta
     )
 
+    # ==========================
+    # MEDIR GEMINI
+    # ==========================
+
+    inicio = time.time()
+
     respuesta = consultar_gemini(
         prompt
+    )
+
+    print(
+        f"Gemini respondió en: {time.time() - inicio:.2f} segundos"
     )
 
     historial.append(

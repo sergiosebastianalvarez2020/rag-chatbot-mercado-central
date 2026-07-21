@@ -11,8 +11,7 @@ __pycache__/
 # Archivos de VS Code
 .vscode/
 
-# Base vectorial (se puede regenerar)
-chroma_db/
+
 
 # Archivos del sistema
 .DS_Store
