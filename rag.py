@@ -1,6 +1,10 @@
 from config import cliente
 
-from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 from langchain_chroma import Chroma
 # ==========================
 # VECTOR STORE
@@ -8,9 +12,10 @@ from langchain_chroma import Chroma
 
 def cargar_retriever():
 
-    embeddings = HuggingFaceEmbeddings(
-        model_name="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
-    )
+    embeddings = GoogleGenerativeAIEmbeddings(
+    model="models/gemini-embedding-001",
+    google_api_key=os.getenv("GEMINI_API_KEY")
+)
 
     vectorstore = Chroma(
         persist_directory="chroma_db",
