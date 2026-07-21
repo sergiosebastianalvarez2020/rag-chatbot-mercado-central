@@ -28,7 +28,7 @@ def cargar_retriever():
     )
 
 
-retriever = cargar_retriever()
+retriever = None
 
 # ==========================
 # MEMORIA
@@ -115,6 +115,14 @@ def consultar_gemini(prompt):
 
 
 def preguntar(pregunta):
+
+    global retriever
+
+    if retriever is None:
+        print("Cargando retriever...")
+        retriever = cargar_retriever()
+
+    
 
     if historial:
 
